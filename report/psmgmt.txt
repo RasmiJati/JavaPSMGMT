@@ -1,0 +1,91 @@
+CREATE TABLE users(
+	Uid int PRIMARY KEY AUTO_INCREMENT,
+    Name varchar(100),
+    Address varchar(100),
+    Gender varchar(12),
+    Phone_no varchar(100),
+    Email varchar(100),
+    Password varchar(100),
+    Type varchar(100));
+
+
+CREATE TABLE company(
+	Id int AUTO_INCREMENT NOT null,
+    Date date,
+    Name varchar(100),
+    Address varchar(100),
+    Phone varchar(100),
+    Email varchar(100),
+    Description varchar(100),
+	Uid int,
+    PRIMARY KEY(Id),
+    FOREIGN KEY(Uid) REFERENCES users(Uid));
+
+CREATE TABLE purchase(
+    Pid int AUTO_INCREMENT not null,
+    Date date,
+    Name varchar(100),
+	Description varchar(100),
+    Rate varchar(100),
+    Qty varchar(100),
+    Amount varchar(100),
+    VAT varchar(100),
+    Discount varchar(100),
+    Total_amount varchar(100),
+    ID int,
+    PRIMARY KEY(Pid),
+    FOREIGN KEY(Id) REFERENCES company(Id));
+
+
+CREATE TABLE customer(
+	Cid int AUTO_INCREMENT NOT null,
+    Date date,
+    Name varchar(100),
+    Address varchar(100),
+    Gender varchar(12),
+    Phone_no varchar(100),
+    Email varchar(100),
+   	Uid int,
+    PRIMARY KEY(Cid),
+    FOREIGN KEY(Uid) REFERENCES users(Uid));
+
+CREATE TABLE sales(
+    Sno int AUTO_INCREMENT not null,
+    Date date,
+    Name varchar(100),
+	Description varchar(100),
+    Rate varchar(100),
+    Qty varchar(100),
+    Amount varchar(100),
+    VAT varchar(100),
+    Discount varchar(100),
+    Total_amount varchar(100),
+    Pid int,
+    Cid int,
+    CName varchar(100),	
+    Uid int,
+    User varchar(100),
+		
+    PRIMARY KEY(Sno),
+    FOREIGN KEY(Pid) REFERENCES purchase(Pid),   
+    FOREIGN KEY(Cid) REFERENCES customer(Cid),
+    FOREIGN KEY(Uid) REFERENCES users(Uid));
+	
+
+
+insert into users values(2,2021-02-09,'Rabi','Bhaktapur','Male','9861487079','rabi1234@gmail.com','rabi1234','Accountact')
+
+
+
+create table detail(
+    Uid int,
+    Cid int,
+    Id int,
+    Sno int,
+    Pid int,
+    FOREIGN KEY(Uid) REFERENCES users(Uid),
+	FOREIGN KEY(Cid) REFERENCES customer(Cid),
+	FOREIGN KEY(Id) REFERENCES company(Id),
+    FOREIGN KEY(Sno) REFERENCES sales(Sno),
+    FOREIGN KEY(Pid) REFERENCES purchase(Pid)
+);
